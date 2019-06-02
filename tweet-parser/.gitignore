@@ -1,5 +1,8 @@
 # Holds credentials for Twitter
 credentials.pkl
 
+# DB replacement ...
+last_process_info.pkl
+
 # Ignore all Jupyter notebooks ... I'm keeping them for local testing purposes only
 *.ipynb
