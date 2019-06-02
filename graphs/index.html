@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="moment.js"></script>
+		<script type="text/javascript" src="underscore-min.js"></script>
+		<script type="text/javascript" src="backbone-min.js"></script>
+		<script type="text/javascript" src="models.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+	</head>
+	<body>
+			<style type="text/css">
+				.pie-view {
+					width: 400px;
+					height: 400px;
+				}
+			</style>
+
+			<div style="width:80%; height:80%" id="container">
+				<canvas id="myChart"></canvas>
+			</div>
+			
+			<script>
+				window.chartColors = {
+					red: 'rgb(255, 99, 132)',
+					orange: 'rgb(255, 159, 64)',
+					yellow: 'rgb(255, 205, 86)',
+					green: 'rgb(75, 192, 192)',
+					blue: 'rgb(54, 162, 235)',
+					purple: 'rgb(153, 102, 255)',
+					grey: 'rgb(201, 203, 207)'
+				};
+				
+				var tags = ['happy', 'sad', 'gameofthrones'];
+				
+				_.each(tags, function(tag) {
+					var h1 = new HashtagData({hashtag: tag}); h1.fetch().done(function() { var v1 = new PieView({model: h1 }); 					$('#container').append(v1.render().$el); })
+				});
+				
+			</script>
+	</body>
+</html>
