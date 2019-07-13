@@ -20,12 +20,12 @@ var HashtagData = Backbone.Model.extend({
 	},
 	
 	url: function() {
-		return "http://kafka-sentiments.local:9200/processed_tweets/_search?q=%23" + this.get('hashtag');
+		return "http://kafka-sentiments.local:9200/processed_tweets/_search?q=%23" + this.get('hashtag') + '&size=100';
 	},
 	
 	parse: function(data) {
 		var tweets = [];
-		
+
 		_.each(data.hits.hits, function(hit) {
 			tweets.push(hit._source);
 		});
@@ -51,9 +51,20 @@ var PieView = Backbone.View.extend({
 	},
 
 	render: function() {
-		this.$el.addClass('pie-view');
+		// this.$el.addClass('pie-view');
+		
+		var tpl = _.template($('#pieview-tpl').html());
 
-		this.$el.html('<h4>#'+this.model.get('hashtag')+'</h4><canvas id="myChart-' + this.cid + '"></canvas>');
+		// this.$el.html('<h4>Hashtag: #'+this.model.get('hashtag')+'</h4><canvas id="myChart-' + this.cid + '"></canvas>');
+		
+		var html = tpl({
+			cid: this.cid,
+			hashtag: this.model.get('hashtag'),
+			tweets: this.model.get('tweets')
+		});
+		
+		this.$el.html(html);
+		
 		
 		var positive = negative = neutral = 0;
 		

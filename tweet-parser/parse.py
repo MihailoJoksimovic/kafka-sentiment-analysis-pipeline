@@ -63,7 +63,8 @@ producer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'
 
 for tweet in search_results['statuses']:
     print(tweet)
-    producer.send(config.KAFKA_RAW_TWEETS_TOPIC, tweet)
+    producer.send('raw_tweets', tweet)
+
     last_process_info[HASHTAG]['tweet_id'] = tweet['id']
     last_process_info[HASHTAG]['timestamp'] = datetime.now().timestamp()
 
